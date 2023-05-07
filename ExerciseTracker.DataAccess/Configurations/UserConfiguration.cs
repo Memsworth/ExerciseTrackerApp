@@ -10,7 +10,7 @@ namespace ExerciseTracker.DataAccess.Configurations
         {
             builder.HasKey(u => u.Id);
             builder.HasIndex(u => u.Email).IsUnique();
-            builder.Property(u => u.CreatedAt).HasDefaultValueSql();
+            builder.Property(u => u.CreatedAt).HasDefaultValueSql("getdate()");
             builder.Property(u => u.Email).IsRequired().HasMaxLength(250);
             builder.Property(u => u.Password).IsRequired().HasMaxLength(64);
 
