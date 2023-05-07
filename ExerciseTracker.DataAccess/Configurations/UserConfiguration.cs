@@ -8,7 +8,16 @@ namespace ExerciseTracker.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(u => u.Id);
+            builder.HasIndex(u => u.Email).IsUnique();
+            builder.Property(u => u.CreatedAt).HasDefaultValueSql();
+            builder.Property(u => u.Email).IsRequired().HasMaxLength(250);
+            builder.Property(u => u.Password).IsRequired().HasMaxLength(64);
+
+            builder
+                .HasMany(e => e.ExerciseItems)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId);
         }
     }
 }
