@@ -1,5 +1,4 @@
-﻿using ExerciseTracker.DataAccess.Repositories;
-using ExerciseTracker.Domain.Abstractions;
+﻿using ExerciseTracker.Domain.Abstractions;
 using ExerciseTracker.Domain.Models;
 
 namespace ExerciseTracker.Service.Services;
