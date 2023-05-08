@@ -10,7 +10,6 @@ public class ExerciseTrackerContextFactory : IDesignTimeDbContextFactory<Exercis
         var folder = Environment.SpecialFolder.MyDocuments;
         var path = Environment.GetFolderPath(folder);
         var dbPath = Path.Join(path, "ExerciseTracker.db");
-
         var optionBuilder = new DbContextOptionsBuilder<ExerciseTrackerDbContext>();
         optionBuilder.UseSqlite($"Data Source = {dbPath}");
 

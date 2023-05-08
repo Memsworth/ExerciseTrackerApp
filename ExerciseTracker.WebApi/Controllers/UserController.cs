@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ExerciseTracker.DataAccess;
+using ExerciseTracker.Domain.Abstractions;
 using ExerciseTracker.Domain.Models;
 
 namespace ExerciseTracker.WebApi.Controllers
@@ -14,14 +15,13 @@ namespace ExerciseTracker.WebApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ExerciseTrackerDbContext _context;
-
-        public UserController(ExerciseTrackerDbContext context)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
-        // GET: api/User
+        /*// GET: api/User
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -30,9 +30,9 @@ namespace ExerciseTracker.WebApi.Controllers
               return NotFound();
           }
             return await _context.Users.ToListAsync();
-        }
+        }*/
 
-        // GET: api/User/5
+        /*// GET: api/User/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
@@ -48,11 +48,11 @@ namespace ExerciseTracker.WebApi.Controllers
             }
 
             return user;
-        }
+        }*/
 
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
@@ -79,25 +79,18 @@ namespace ExerciseTracker.WebApi.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'ExerciseTrackerDbContext.Users'  is null.");
-          }
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return await _userService.InsertAsync(user);
         }
 
         // DELETE: api/User/5
-        [HttpDelete("{id}")]
+        /*[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             if (_context.Users == null)
@@ -114,11 +107,11 @@ namespace ExerciseTracker.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
-        private bool UserExists(int id)
+        /*private bool UserExists(int id)
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        }*/
     }
 }

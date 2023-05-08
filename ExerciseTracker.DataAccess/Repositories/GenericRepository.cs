@@ -24,7 +24,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T :  class
         }
     }
 
-    public async Task InsertAsync(T entity)
+    public async Task<T> InsertAsync(T entity)
     {
         if (entity == null)
         {
@@ -34,6 +34,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T :  class
         {
             await _exerciseTrackerDbContext.AddAsync(entity);
             await _exerciseTrackerDbContext.SaveChangesAsync();
+            return entity;
         }
         catch (Exception e)
         {

@@ -2,7 +2,7 @@
 
 namespace ExerciseTracker.Domain.Abstractions;
 
-public interface IUserService : IGenericService<User>
+public interface IUserService
 {
-    
+    Task<User> InsertAsync(User entity);
 }

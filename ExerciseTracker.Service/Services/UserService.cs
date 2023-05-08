@@ -6,15 +6,15 @@ namespace ExerciseTracker.Service.Services;
 
 public class UserService : IUserService
 {
-    private readonly UserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
 
-    public UserService(UserRepository userRepository)
+    public UserService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
 
-    public async Task InsertAsync(User entity)
+    public async Task<User> InsertAsync(User entity)
     {
-         await _userRepository.InsertAsync(entity);
+        return await _userRepository.InsertAsync(entity);
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.DataAccess.Repositories;
 
-public class UserRepository : GenericRepository<User>, IUserRepository<User>
+public class UserRepository : GenericRepository<User>, IUserRepository
 {
     public UserRepository(ExerciseTrackerDbContext exerciseTrackerDbContext) : base(exerciseTrackerDbContext)
     {

@@ -2,7 +2,7 @@
 
 namespace ExerciseTracker.Domain.Abstractions;
 
-public interface IUserRepository<T>
+public interface IUserRepository : IGenericRepository<User>
 {
-    Task<T> GetById(int id);
+    Task<User> GetById(int id);
 }
