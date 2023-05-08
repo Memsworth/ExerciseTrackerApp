@@ -2,8 +2,8 @@
 {
     public interface IGenericRepository<T>
     {
-        Task<List<T>> GetAll();
-        void Insert(T entity);
-        void Update(T entity);
+        Task<IEnumerable<T>> GetAll();
+        Task InsertAsync(T entity);
+        Task UpdateAsync(T entity);
     }
 }

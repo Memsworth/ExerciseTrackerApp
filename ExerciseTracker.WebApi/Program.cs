@@ -1,11 +1,19 @@
+using ExerciseTracker.DataAccess;
+using ExerciseTracker.DataAccess.Repositories;
+using ExerciseTracker.Domain.Abstractions;
+using ExerciseTracker.Domain.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<ExerciseTrackerDbContext>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 
 var app = builder.Build();
 

@@ -5,18 +5,18 @@ namespace ExerciseTracker.DataAccess.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T :  class
 {
-    protected readonly ExerciseTrackerDbContext ExerciseTrackerDbContext;
+    protected readonly ExerciseTrackerDbContext _exerciseTrackerDbContext;
 
     public GenericRepository(ExerciseTrackerDbContext exerciseTrackerDbContext)
     {
-        ExerciseTrackerDbContext = exerciseTrackerDbContext;
+        _exerciseTrackerDbContext = exerciseTrackerDbContext;
     }
 
-    public async Task<List<T>> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
         try
         {
-            return await ExerciseTrackerDbContext.Set<T>().ToListAsync();
+            return await _exerciseTrackerDbContext.Set<T>().ToListAsync();
         }
         catch (Exception e)
         {
@@ -24,7 +24,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T :  class
         }
     }
 
-    public async void Insert(T entity)
+    public async Task InsertAsync(T entity)
     {
         if (entity == null)
         {
@@ -32,8 +32,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T :  class
         }
         try
         {
-            await ExerciseTrackerDbContext.AddAsync(entity);
-            await ExerciseTrackerDbContext.SaveChangesAsync();
+            await _exerciseTrackerDbContext.AddAsync(entity);
+            await _exerciseTrackerDbContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -41,7 +41,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T :  class
         }
     }
 
-    public async void Update(T entity)
+    public async Task UpdateAsync(T entity)
     {
         if (entity == null)
         {
@@ -49,8 +49,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T :  class
         }
         try
         {
-            ExerciseTrackerDbContext.Update(entity);
-            await ExerciseTrackerDbContext.SaveChangesAsync();
+            _exerciseTrackerDbContext.Update(entity);
+            await _exerciseTrackerDbContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
