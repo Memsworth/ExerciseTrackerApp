@@ -2,9 +2,8 @@
 {
     public interface IGenericRepository<T>
     {
-        Task<T> GetById(int id);
-        IEnumerable<T> GetAll();
-        Task Add(T entity);
-        Task Remove(T entity);
+        Task<List<T>> GetAll();
+        void Insert(T entity);
+        void Update(T entity);
     }
 }
