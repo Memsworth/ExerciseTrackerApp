@@ -46,6 +46,7 @@ public class GenericRepository<T> : IBaseRepository<T> where T : class
         try
         {
             await _exerciseTrackerDbContext.Set<T>().AddAsync(entity);
+            await _exerciseTrackerDbContext.SaveChangesAsync();
         }
         catch (Exception e)
         {

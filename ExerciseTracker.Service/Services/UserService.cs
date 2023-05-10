@@ -8,23 +8,18 @@ namespace ExerciseTracker.Service.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork)
+    public UserService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _unitOfWork = unitOfWork;
     }
 
-    public async Task<bool> InsertAsync(User entity)
+    public async Task InsertAsync(User entity)
     {
         if (entity == null)
         {
             throw new ArgumentNullException($"{nameof(entity)} entity is null");
         }
-
+        
         await _userRepository.Add(entity);
-        var resultOfOperation = await _unitOfWork.Save();
-
-        return resultOfOperation == 0;
     }
 }

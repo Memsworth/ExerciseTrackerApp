@@ -4,5 +4,5 @@ namespace ExerciseTracker.Domain.Abstractions.Services;
 
 public interface IUserService
 {
-    Task<bool> InsertAsync(User entity);
+    Task InsertAsync(User entity);
 }

@@ -18,7 +18,6 @@ builder.Services.AddDbContext<ExerciseTrackerDbContext>(options => options.UseSq
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 
