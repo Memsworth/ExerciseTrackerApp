@@ -17,9 +17,6 @@ This is an application designed to track a user's exercise. As I have been desig
 - Apply uniting testing to the app.
 - Importance of unit tests when writing a large scale app.
 
-## Source
-
-This is a part of the [TheCSharpAcademy](https://www.thecsharpacademy.com/) .NET Full Stack Dev roadmap 
 ## Feedback
 
 If you have any feedback, please reach out to me at abubakarahmed4497@outlook.com or on Discord: Memsworth#5099
