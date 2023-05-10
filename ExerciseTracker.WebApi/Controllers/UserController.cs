@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ExerciseTracker.DataAccess;
 using ExerciseTracker.Domain.Abstractions;
+using ExerciseTracker.Domain.Abstractions.Services;
 using ExerciseTracker.Domain.Models;
 
 namespace ExerciseTracker.WebApi.Controllers

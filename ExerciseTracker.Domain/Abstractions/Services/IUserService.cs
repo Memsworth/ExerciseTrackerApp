@@ -1,6 +1,6 @@
 ﻿using ExerciseTracker.Domain.Models;
 
-namespace ExerciseTracker.Domain.Abstractions;
+namespace ExerciseTracker.Domain.Abstractions.Services;
 
 public interface IUserService
 {

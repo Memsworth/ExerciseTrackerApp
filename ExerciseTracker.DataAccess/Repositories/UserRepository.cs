@@ -1,4 +1,5 @@
 ﻿using ExerciseTracker.Domain.Abstractions;
+using ExerciseTracker.Domain.Abstractions.Repositories;
 using ExerciseTracker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 

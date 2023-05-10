@@ -1,6 +1,8 @@
 using ExerciseTracker.DataAccess;
 using ExerciseTracker.DataAccess.Repositories;
 using ExerciseTracker.Domain.Abstractions;
+using ExerciseTracker.Domain.Abstractions.Repositories;
+using ExerciseTracker.Domain.Abstractions.Services;
 using ExerciseTracker.Domain.Models;
 using ExerciseTracker.Service.Services;
 using Microsoft.EntityFrameworkCore;
