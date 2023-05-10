@@ -4,14 +4,22 @@ namespace ExerciseTracker.DataAccess.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
+    protected readonly ExerciseTrackerDbContext _exerciseTrackerDbContext;
+    public IUserRepository UserRepository { get; }
+
+    public UnitOfWork(ExerciseTrackerDbContext exerciseTrackerDbContext, IUserRepository userRepository)
+    {
+        _exerciseTrackerDbContext = exerciseTrackerDbContext;
+        UserRepository = userRepository;
+    }
+
     public void Dispose()
     {
         throw new NotImplementedException();
     }
 
-    public IUserRepository UserRepository { get; }
-    public Task<int> Save()
+    public async Task<int> Save()
     {
-        throw new NotImplementedException();
+        return await _exerciseTrackerDbContext.SaveChangesAsync();
     }
 }
