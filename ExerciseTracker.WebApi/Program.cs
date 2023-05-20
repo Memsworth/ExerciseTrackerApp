@@ -2,9 +2,7 @@ using ExerciseTracker.DataAccess;
 using ExerciseTracker.DataAccess.Repositories;
 using ExerciseTracker.Domain.Abstractions;
 using ExerciseTracker.Domain.Abstractions.Repositories;
-using ExerciseTracker.Domain.Abstractions.Services;
 using ExerciseTracker.Domain.Models;
-using ExerciseTracker.Service.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +16,6 @@ builder.Services.AddDbContext<ExerciseTrackerDbContext>(options => options.UseSq
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
