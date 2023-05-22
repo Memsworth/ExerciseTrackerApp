@@ -1,90 +1,82 @@
 ﻿using ExerciseTracker.Domain.Abstractions.Repositories;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExerciseTracker.DataAccess.Repositories;
-
-public class GenericRepository<T> : IBaseRepository<T> where T : class
+namespace ExerciseTracker.DataAccess.Repositories
 {
-    protected readonly ExerciseTrackerDbContext _exerciseTrackerDbContext;
-
-    public GenericRepository(ExerciseTrackerDbContext exerciseTrackerDbContext)
+    public class GenericRepository<T> : IBaseRepository<T> where T : class
     {
-        _exerciseTrackerDbContext = exerciseTrackerDbContext;
-    }
+        protected readonly ExerciseTrackerDbContext DbContext;
 
-
-    public async Task<T?> GetById(int id)
-    {
-        try
+        public GenericRepository(ExerciseTrackerDbContext dbContext)
         {
-            return await _exerciseTrackerDbContext.Set<T>().FindAsync(id);
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"{e.Message}. Item with {id} doesn't exist");
-        }
-    }
-
-    public async Task<IEnumerable<T>> GetAll()
-    {
-        try
-        {
-            return await _exerciseTrackerDbContext.Set<T>().ToListAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"{e.Message}. Can't Get items");
-        }
-    }
-
-    public async Task Add(T entity)
-    {
-        if (entity == null)
-        {
-            throw new ArgumentNullException($"{nameof(entity)} can't be null");
-        }
-        try
-        {
-            await _exerciseTrackerDbContext.Set<T>().AddAsync(entity);
-            await _exerciseTrackerDbContext.SaveChangesAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"{e.Message}. Item can't be inserted");
-        }
-    }
-
-    public async Task Delete(T entity)
-    {
-        if (entity == null)
-        {
-            throw new ArgumentNullException($"{nameof(entity)} can't be null");
+            DbContext = dbContext;
         }
 
-        try
+        public async Task AddAsync(T entity)
         {
-            _exerciseTrackerDbContext.Set<T>().Remove(entity);
+            if (entity == null)
+            {
+                
+                throw new ArgumentNullException($"{nameof(entity)}","can't be a null item");
+            }
+            try
+            {
+                await DbContext.AddAsync(entity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
         }
-        catch (Exception e)
-        {
-            throw new Exception($"{e.Message}. Item can't be deleted");
-        }
-    }
 
-    public async Task Update(T entity)
-    {
-        if (entity == null)
+        public async Task DeleteAsync(T entity)
         {
-            throw new ArgumentNullException($"{nameof(entity)} can't be null");
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"{nameof(entity)}","Entity doesn't exist");
+            }
+            try
+            {
+                await Task.Run(async() => DbContext.Remove(entity)) ;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
         }
 
-        try
+        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate)
         {
-             _exerciseTrackerDbContext.Set<T>().Update(entity);
+            throw new NotImplementedException();
         }
-        catch (Exception e)
+
+        public async Task<IEnumerable<T>> GetAsync()
         {
-            throw new Exception($"{e.Message}. Item can't be updated");
+            try
+            {
+                return await DbContext.Set<T>().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
+        public async Task UpdateAsync(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"{nameof(entity)}", "Entity can't be null");
+            }
+            try
+            {
+                await Task.Run(async() => DbContext.Update(entity));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
         }
     }
 }

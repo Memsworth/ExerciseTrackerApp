@@ -18,13 +18,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\ExerciseTracker.DataAccess\ExerciseTracker.DataAccess.csproj" />
       <ProjectReference Include="..\ExerciseTracker.Domain\ExerciseTracker.Domain.csproj" />
       <ProjectReference Include="..\ExerciseTracker.Service\ExerciseTracker.Service.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="DTO\" />
     </ItemGroup>
 
 </Project>

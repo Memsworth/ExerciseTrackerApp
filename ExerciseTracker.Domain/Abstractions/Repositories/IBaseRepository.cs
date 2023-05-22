@@ -1,11 +1,13 @@
-﻿namespace ExerciseTracker.Domain.Abstractions.Repositories
+﻿using System.Linq.Expressions;
+
+namespace ExerciseTracker.Domain.Abstractions.Repositories
 {
     public interface IBaseRepository<T> where T : class
     {
-        Task<T?> GetById(int id);
-        Task<IEnumerable<T>> GetAll();
-        Task Add(T entity);
-        Task Delete(T entity);
-        Task Update(T entity);
+        Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> GetAsync();
+        Task AddAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task UpdateAsync(T entity);
     }
 }
