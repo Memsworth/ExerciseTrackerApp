@@ -7,4 +7,5 @@ public interface IExerciseService
     Task<ExerciseItem> GetExerciseByIdAsync(int id);
     Task<List<ExerciseItem>> GetAllExerciseAsync();
     Task AddExerciseAsync(ExerciseItem exercise);
+    Task DeleteExerciseAsync(ExerciseItem exercise);
 }

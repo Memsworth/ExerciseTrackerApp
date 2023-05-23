@@ -23,36 +23,24 @@ namespace ExerciseTracker.WebApi.Controllers
             _exerciseService = exerciseService;
         }
         
-        /*
+        
         // GET: api/Exercise
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExerciseItem>>> GetExerciseItems()
+        public async Task<ActionResult<List<ExerciseItemDisplayDTO>>> GetExerciseItems()
         {
-          if (_exerciseService.ExerciseItems == null)
-          {
-              return NotFound();
-          }
-            return await _exerciseService.ExerciseItems.ToListAsync();
+            var items = await _exerciseService.GetAllExerciseAsync();
+            return items.Select(x => x.ToDto()).ToList();
         }
 
+        
         // GET: api/Exercise/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ExerciseItem>> GetExerciseItem(int id)
+        public async Task<ActionResult<ExerciseItemDisplayDTO>> GetExerciseItem(int id)
         {
-          if (_exerciseService.ExerciseItems == null)
-          {
-              return NotFound();
-          }
-            var exerciseItem = await _exerciseService.ExerciseItems.FindAsync(id);
-
-            if (exerciseItem == null)
-            {
-                return NotFound();
-            }
-
-            return exerciseItem;
+            var item = await _exerciseService.GetExerciseByIdAsync(id);
+            return item.ToDto();
         }
-        
+        /*
         // PUT: api/Exercise/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -82,43 +70,24 @@ namespace ExerciseTracker.WebApi.Controllers
             }
 
             return NoContent();
-        }
-*/
+        }*/
+
         // POST: api/Exercise
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ExerciseItemDTO>> PostExerciseItem(ExerciseItemDTO exerciseItemDto)
+        public async Task<ActionResult<ExerciseItemPostDTO>> PostExerciseItem(ExerciseItemPostDTO exerciseItemDto)
         {
             var employeeItem = exerciseItemDto.ToDbo();
             await _exerciseService.AddExerciseAsync(employeeItem);
             return CreatedAtAction("PostExerciseItem", new { id = employeeItem.Id }, employeeItem);
         }
 
-        /*
         // DELETE: api/Exercise/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExerciseItem(int id)
         {
-            if (_exerciseService.ExerciseItems == null)
-            {
-                return NotFound();
-            }
-            var exerciseItem = await _exerciseService.ExerciseItems.FindAsync(id);
-            if (exerciseItem == null)
-            {
-                return NotFound();
-            }
-
-            _exerciseService.ExerciseItems.Remove(exerciseItem);
-            await _exerciseService.SaveChangesAsync();
-
+            await _exerciseService.DeleteExerciseAsync(await _exerciseService.GetExerciseByIdAsync(id));
             return NoContent();
         }
-
-        private bool ExerciseItemExists(int id)
-        {
-            return (_exerciseService.ExerciseItems?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
-        */
     }
 }

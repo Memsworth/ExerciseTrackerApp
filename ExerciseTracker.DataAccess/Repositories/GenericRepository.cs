@@ -46,12 +46,24 @@ namespace ExerciseTracker.DataAccess.Repositories
             }
         }
 
-        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate)
+        
+        public async Task<List<T>> GetAsync(Expression<Func<T, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<T>> GetAsync()
+        public async Task<T> GetAsync(int id)
+        {
+            try
+            {
+                return await DbContext.Set<T>().FindAsync(id) ?? throw new KeyNotFoundException();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
+        public async Task<List<T>> GetAsync()
         {
             try
             {

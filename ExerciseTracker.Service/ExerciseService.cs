@@ -13,9 +13,9 @@ public class ExerciseService : IExerciseService
         _unitOfWork = unitOfWork;
     }
 
-    public Task<ExerciseItem> GetExerciseByIdAsync(int id)
+    public async Task<ExerciseItem> GetExerciseByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _unitOfWork.ExerciseItemRepository.GetAsync(id);
     }
 
     public async Task<List<ExerciseItem>> GetAllExerciseAsync()
@@ -27,6 +27,12 @@ public class ExerciseService : IExerciseService
     public async Task AddExerciseAsync(ExerciseItem exercise)
     {
         await _unitOfWork.ExerciseItemRepository.AddAsync(exercise);
+        await _unitOfWork.CommitAsync();
+    }
+
+    public async Task DeleteExerciseAsync(ExerciseItem exercise)
+    {
+        await _unitOfWork.ExerciseItemRepository.DeleteAsync(exercise);
         await _unitOfWork.CommitAsync();
     }
 }
