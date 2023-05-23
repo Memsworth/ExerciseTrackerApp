@@ -1,8 +1,8 @@
 using ExerciseTracker.DataAccess;
-using ExerciseTracker.DataAccess.Repositories;
-using ExerciseTracker.Domain.Abstractions;
-using ExerciseTracker.Domain.Abstractions.Repositories;
-using ExerciseTracker.Domain.Models;
+using ExerciseTracker.DataAccess.UnitOfWork;
+using ExerciseTracker.Domain.Abstractions.Services;
+using ExerciseTracker.Domain.Abstractions.UnitOfWork;
+using ExerciseTracker.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 var dbpath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ExerciseTracker.db");
 builder.Services.AddDbContext<ExerciseTrackerDbContext>(options => options.UseSqlite($"Data Source = {dbpath}"));
-
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IExerciseService, ExerciseService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
