@@ -4,7 +4,8 @@ namespace ExerciseTracker.Domain.Abstractions.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        IExerciseItemRepository ExerciseItem { get; }
-        Task Save();
+        IExerciseItemRepository ExerciseItemRepository { get; }
+        Task CommitAsync();
+        Task RollBackAsync();
     }
 }
