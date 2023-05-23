@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ExerciseTracker.DataAccess;
 using ExerciseTracker.Domain.Abstractions.Services;
 using ExerciseTracker.Domain.Models;
+using ExerciseTracker.WebApi.DTO;
 
 namespace ExerciseTracker.WebApi.Controllers
 {
@@ -86,10 +87,11 @@ namespace ExerciseTracker.WebApi.Controllers
         // POST: api/Exercise
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ExerciseItem>> PostExerciseItem(ExerciseItem exerciseItem)
+        public async Task<ActionResult<ExerciseItemDTO>> PostExerciseItem(ExerciseItemDTO exerciseItemDto)
         {
-            await _exerciseService.AddExerciseAsync(exerciseItem);
-            return CreatedAtAction("PostExerciseItem", new { id = exerciseItem.Id }, exerciseItem);
+            var employeeItem = exerciseItemDto.ToDbo();
+            await _exerciseService.AddExerciseAsync(employeeItem);
+            return CreatedAtAction("PostExerciseItem", new { id = employeeItem.Id }, employeeItem);
         }
 
         /*
