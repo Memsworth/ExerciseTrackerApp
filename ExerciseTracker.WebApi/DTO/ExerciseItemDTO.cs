@@ -18,7 +18,11 @@ public class ExerciseItemDisplayDTO
     public TimeSpan? Duration { get; set; }
 }
 
-
+public class ExerciseItemUpdateDto
+{
+    public string? WorkoutName { get; set; }
+    public DateTime? EndTime { get; set; }
+}
 
 public static class DTOExtention
 {

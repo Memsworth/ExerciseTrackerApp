@@ -30,6 +30,11 @@ public class ExerciseService : IExerciseService
         await _unitOfWork.CommitAsync();
     }
 
+    public async Task UpdateExerciseAsync(ExerciseItem exercise)
+    {
+        await _unitOfWork.ExerciseItemRepository.UpdateAsync(exercise);
+        await _unitOfWork.CommitAsync();
+    }
     public async Task DeleteExerciseAsync(ExerciseItem exercise)
     {
         await _unitOfWork.ExerciseItemRepository.DeleteAsync(exercise);

@@ -23,7 +23,6 @@ namespace ExerciseTracker.WebApi.Controllers
             _exerciseService = exerciseService;
         }
         
-        
         // GET: api/Exercise
         [HttpGet]
         public async Task<ActionResult<List<ExerciseItemDisplayDTO>>> GetExerciseItems()
@@ -40,37 +39,21 @@ namespace ExerciseTracker.WebApi.Controllers
             var item = await _exerciseService.GetExerciseByIdAsync(id);
             return item.ToDto();
         }
-        /*
+        
+        
+        //THIS FEELS WRONG. Check in with sensei
         // PUT: api/Exercise/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExerciseItem(int id, ExerciseItem exerciseItem)
+        public async Task<IActionResult> PutExerciseItem(int id, ExerciseItemUpdateDto exerciseItemUpdateDto)
         {
-            if (id != exerciseItem.Id)
-            {
-                return BadRequest();
-            }
-
-            _exerciseService.Entry(exerciseItem).State = EntityState.Modified;
-
-            try
-            {
-                await _exerciseService.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ExerciseItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            var item = await _exerciseService.GetExerciseByIdAsync(id);
+            item.WorkoutName = exerciseItemUpdateDto.WorkoutName;
+            item.EndTime = exerciseItemUpdateDto.EndTime;
+            item.Duration = item.EndTime - item.StartTime;
+            await _exerciseService.UpdateExerciseAsync(item);
             return NoContent();
-        }*/
+        }
 
         // POST: api/Exercise
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
