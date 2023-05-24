@@ -48,9 +48,7 @@ namespace ExerciseTracker.WebApi.Controllers
         public async Task<IActionResult> PutExerciseItem(int id, ExerciseItemUpdateDto exerciseItemUpdateDto)
         {
             var item = await _exerciseService.GetExerciseByIdAsync(id);
-            item.WorkoutName = exerciseItemUpdateDto.WorkoutName;
-            item.EndTime = exerciseItemUpdateDto.EndTime;
-            item.Duration = item.EndTime - item.StartTime;
+            item.UpdateItem(exerciseItemUpdateDto);
             await _exerciseService.UpdateExerciseAsync(item);
             return NoContent();
         }

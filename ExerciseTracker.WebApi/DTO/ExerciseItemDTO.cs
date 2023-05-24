@@ -34,7 +34,13 @@ public static class DTOExtention
         EndTime = exerciseItem.EndTime,
         Duration = exerciseItem.Duration
     };
-    
+
+    public static void UpdateItem(this ExerciseItem exerciseItem, ExerciseItemUpdateDto exerciseItemUpdateDto)
+    {
+        exerciseItem.WorkoutName = exerciseItemUpdateDto.WorkoutName;
+        exerciseItem.EndTime = exerciseItemUpdateDto.EndTime;
+        exerciseItem.Duration = exerciseItem.EndTime - exerciseItem.StartTime;
+    }
     public static ExerciseItem ToDbo(this ExerciseItemPostDTO exerciseItemDto) => new ExerciseItem()
     {
         WorkoutName = exerciseItemDto.WorkoutName,
