@@ -17,7 +17,7 @@ public class UnitOfWork : IUnitOfWork
 
     public async Task CommitAsync() => await _dbContext.SaveChangesAsync();
 
-    public async Task RollBackAsync() => await _dbContext.DisposeAsync();
+    public async Task RollBackAsync() => await _dbContext.DisposeAsync();       // roll back implies roll back transaction where this actually Disposes of the context which miss leading 
 
     public void Dispose() => _dbContext.Dispose();
 

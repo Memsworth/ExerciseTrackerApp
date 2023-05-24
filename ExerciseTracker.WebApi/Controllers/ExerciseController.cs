@@ -47,6 +47,7 @@ namespace ExerciseTracker.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExerciseItem(int id, ExerciseItemUpdateDto exerciseItemUpdateDto)
         {
+            // I see the link from MS who am I to go against them lol
             var item = await _exerciseService.GetExerciseByIdAsync(id);
             item.UpdateItem(exerciseItemUpdateDto);
             await _exerciseService.UpdateExerciseAsync(item);
