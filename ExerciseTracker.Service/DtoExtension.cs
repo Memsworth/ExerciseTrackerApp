@@ -1,30 +1,9 @@
 ﻿using ExerciseTracker.Domain.Models;
+using ExerciseTracker.WebApi.DTO;
 
-namespace ExerciseTracker.WebApi.DTO;
+namespace ExerciseTracker.Service;
 
-public class ExerciseItemPostDTO
-{
-    public string? WorkoutName { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime? EndTime { get; set; }
-}
-
-public class ExerciseItemDisplayDTO
-{
-    public int Id { get; set; }
-    public string? WorkoutName { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime? EndTime { get; set; }
-    public TimeSpan? Duration { get; set; }
-}
-
-public class ExerciseItemUpdateDto
-{
-    public string? WorkoutName { get; set; }
-    public DateTime? EndTime { get; set; }
-}
-
-public static class DTOExtention
+public static class DtoExtension
 {
     public static ExerciseItemDisplayDTO ToDto(this ExerciseItem exerciseItem) => new ExerciseItemDisplayDTO()
     {
@@ -35,11 +14,12 @@ public static class DTOExtention
         Duration = exerciseItem.Duration
     };
 
-    public static void UpdateItem(this ExerciseItem exerciseItem, ExerciseItemUpdateDto exerciseItemUpdateDto)
+    public static ExerciseItem UpdateItem(this ExerciseItem exerciseItem, ExerciseItemUpdateDto exerciseItemUpdateDto)
     {
         exerciseItem.WorkoutName = exerciseItemUpdateDto.WorkoutName;
         exerciseItem.EndTime = exerciseItemUpdateDto.EndTime;
         exerciseItem.Duration = exerciseItem.EndTime - exerciseItem.StartTime;
+        return exerciseItem;
     }
     public static ExerciseItem ToDbo(this ExerciseItemPostDTO exerciseItemDto) => new ExerciseItem()
     {
@@ -48,5 +28,4 @@ public static class DTOExtention
         EndTime = exerciseItemDto.EndTime,
         Duration = exerciseItemDto.StartTime - exerciseItemDto.EndTime
     };
-    
 }
