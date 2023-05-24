@@ -1,11 +1,11 @@
-﻿using ExerciseTracker.Domain.Models;
-using ExerciseTracker.WebApi.DTO;
+﻿using ExerciseTracker.Domain.DTO;
+using ExerciseTracker.Domain.Models;
 
 namespace ExerciseTracker.Service;
 
 public static class DtoExtension
 {
-    public static ExerciseItemDisplayDTO ToDto(this ExerciseItem exerciseItem) => new ExerciseItemDisplayDTO()
+    public static ExerciseItemDisplayDto ToDto(this ExerciseItem exerciseItem) => new ExerciseItemDisplayDto()
     {
         Id = exerciseItem.Id,
         WorkoutName = exerciseItem.WorkoutName,
@@ -21,7 +21,7 @@ public static class DtoExtension
         exerciseItem.Duration = exerciseItem.EndTime - exerciseItem.StartTime;
         return exerciseItem;
     }
-    public static ExerciseItem ToDbo(this ExerciseItemPostDTO exerciseItemDto) => new ExerciseItem()
+    public static ExerciseItem ToDbo(this ExerciseItemPostDto exerciseItemDto) => new ExerciseItem()
     {
         WorkoutName = exerciseItemDto.WorkoutName,
         StartTime = exerciseItemDto.StartTime,

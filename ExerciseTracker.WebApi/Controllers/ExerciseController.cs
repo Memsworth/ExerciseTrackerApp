@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ExerciseTracker.DataAccess;
 using ExerciseTracker.Domain.Abstractions.Services;
-using ExerciseTracker.Domain.Models;
+using ExerciseTracker.Domain.DTO;
 using ExerciseTracker.Service;
-using ExerciseTracker.WebApi.DTO;
 
 namespace ExerciseTracker.WebApi.Controllers
 {
@@ -26,7 +18,7 @@ namespace ExerciseTracker.WebApi.Controllers
         
         // GET: api/Exercise
         [HttpGet]
-        public async Task<ActionResult<List<ExerciseItemDisplayDTO>>> GetExerciseItems()
+        public async Task<ActionResult<List<ExerciseItemDisplayDto>>> GetExerciseItems()
         {
             var items = await _exerciseService.GetAllExerciseAsync();
             return items.Select(x => x.ToDto()).ToList();
@@ -35,7 +27,7 @@ namespace ExerciseTracker.WebApi.Controllers
         
         // GET: api/Exercise/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ExerciseItemDisplayDTO>> GetExerciseItem(int id)
+        public async Task<ActionResult<ExerciseItemDisplayDto>> GetExerciseItem(int id)
         {
             var item = await _exerciseService.GetExerciseByIdAsync(id);
             return item.ToDto();
@@ -57,7 +49,7 @@ namespace ExerciseTracker.WebApi.Controllers
         // POST: api/Exercise
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ExerciseItemPostDTO>> PostExerciseItem(ExerciseItemPostDTO exerciseItemDto)
+        public async Task<ActionResult<ExerciseItemPostDto>> PostExerciseItem(ExerciseItemPostDto exerciseItemDto)
         {
             await _exerciseService.AddExerciseAsync(exerciseItemDto);
             return CreatedAtAction("PostExerciseItem", exerciseItemDto);

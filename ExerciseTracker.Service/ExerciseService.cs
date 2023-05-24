@@ -1,7 +1,7 @@
 ﻿using ExerciseTracker.Domain.Abstractions.Services;
 using ExerciseTracker.Domain.Abstractions.UnitOfWork;
+using ExerciseTracker.Domain.DTO;
 using ExerciseTracker.Domain.Models;
-using ExerciseTracker.WebApi.DTO;
 
 namespace ExerciseTracker.Service;
 
@@ -25,7 +25,7 @@ public class ExerciseService : IExerciseService
         return items.ToList();
     }
 
-    public async Task AddExerciseAsync(ExerciseItemPostDTO exercise)
+    public async Task AddExerciseAsync(ExerciseItemPostDto exercise)
     {
         await _unitOfWork.ExerciseItemRepository.AddAsync(exercise.ToDbo());
         await _unitOfWork.CommitAsync();
